@@ -3,11 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Programmation Lave-linge & Lave-vaisselle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- 🔹 mobile responsive -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @media (max-width: 576px) {
+      .btn-group-responsive {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .btn-group-responsive .btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-<body class="bg-light p-4">
-<div class="container">
-  <h2 class="mb-4">Programmation</h2>
+<body class="bg-light p-3">
+<div class="container-sm"> <!-- 🔹 max-width réduite sur mobile -->
+  <h2 class="mb-4 text-center">Programmation</h2>
 
   <!-- Onglets -->
   <ul class="nav nav-tabs mb-3" id="tabNav" role="tablist">
@@ -28,7 +40,7 @@
           <input type="time" class="form-control" id="startTime">
         </div>
 
-        <div class="d-flex gap-2 mb-3">
+        <div class="d-flex gap-2 mb-3 flex-wrap btn-group-responsive">
           <button class="btn btn-primary" onclick="setTargetTime(8); calculateHours();">Finir à 8h</button>
           <button class="btn btn-secondary" onclick="setTargetTime(17); calculateHours();">Finir à 17h</button>
         </div>
@@ -38,7 +50,7 @@
           <input type="time" class="form-control" id="targetTime">
         </div>
 
-        <button class="btn btn-success mb-3" onclick="calculateHours()">Calculer</button>
+        <button class="btn btn-success mb-3 w-100" onclick="calculateHours()">Calculer</button>
         <div id="resultLavage" class="alert alert-info" style="display:none;"></div>
       </div>
     </div>
@@ -48,7 +60,7 @@
       <div class="card p-3 shadow-sm">
         <div class="mb-3">
           <label class="form-label">Options rapides :</label>
-          <div class="d-flex gap-2">
+          <div class="d-flex gap-2 flex-wrap btn-group-responsive">
             <button class="btn btn-primary" onclick="startAtHour(5)">Démarrer à 5h</button>
             <button class="btn btn-secondary" onclick="startAtHour(15)">Démarrer à 15h</button>
           </div>
@@ -112,7 +124,10 @@ function formatTime(totalMinutes) {
   return `<strong>${h}:${m}</strong>`;
 }
 
-function showResult(text) { document.getElementById('resultVaisselle').style.display="block"; document.getElementById('resultVaisselle').innerHTML=text; }
+function showResult(text) { 
+  document.getElementById('resultVaisselle').style.display="block"; 
+  document.getElementById('resultVaisselle').innerHTML=text; 
+}
 
 function startAtHour(targetHour) {
   const now = new Date();
